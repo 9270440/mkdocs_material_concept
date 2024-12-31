@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: 3.x  # Использование Python версии 3.x
       
-      - uses: actions/cache@v2  # Кэширование зависимостей
+      - uses: actions/cache@v3  # Кэширование зависимостей
         with:
           key: ${{ github.ref }}  # Ключ кэша на основе ветки
           path: .cache  # Путь к кэшу
