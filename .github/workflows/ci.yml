@@ -1,0 +1,29 @@
+name: ci  # Название workflow
+
+on:
+  push:
+    branches: 
+      - master  # Запускается при push в ветку master
+      - main    # Запускается при push в ветку main
+
+permissions:
+  contents: write  # Права на запись в репозиторий
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Используем последнюю версию Ubuntu
+    steps:
+      - uses: actions/checkout@v3  # Клонирование репозитория
+      
+      - uses: actions/setup-python@v4  # Установка Python
+        with:
+          python-version: 3.x  # Использование Python версии 3.x
+      
+      - uses: actions/cache@v2  # Кэширование зависимостей
+        with:
+          key: ${{ github.ref }}  # Ключ кэша на основе ветки
+          path: .cache  # Путь к кэшу
+      
+      - run: pip install mkdocs-material  # Установка MkDocs Material
+      
+      - run: mkdocs gh-deploy --force  # Деплой на GitHub Pages
